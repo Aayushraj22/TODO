@@ -1,0 +1,21 @@
+.navbar{
+    height: 10dvh;
+    width: 100%;
+    position: fixed;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    padding-inline: 2rem;
+    z-index: 2;
+  }
+
+.authLinks{
+    /* border: 1px solid green; */
+    height: 100%;
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    align-items: center;
+}

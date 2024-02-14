@@ -1,0 +1,25 @@
+.taskCard-container{
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.936);
+    border-radius: 0.5rem;
+}
+
+.group-icons{
+
+    flex: 1;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 0.8rem;
+    min-height: 20px;
+}
+
+.group-icons > i{
+    cursor: pointer;
+}

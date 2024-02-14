@@ -1,0 +1,64 @@
+.btn{
+    border-radius: 0.3rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    width: fit-content;
+    font-weight: 600;
+    font-size: 1.1rem;
+    box-shadow: 0 1px 5px rgb(145, 140, 140);
+    transition: 0.1s all ease-in-out;
+    border: none;
+}
+
+.btn:hover{
+    background: rgb(249, 150, 114);
+}
+
+.create-task{
+    background: rgba(184, 135, 11, 0.653);
+}
+.create-task:hover{
+    background: darkgoldenrod;
+    color: white;
+}
+
+@keyframes vibration{
+    0%{
+        transform: translateX(-5px);
+    }
+    50%{
+        transform: translateX(10px);
+    }
+    100%{
+        transform: translateX(-5px);
+    }
+
+}
+.cancel{
+    background: rgba(255, 0, 0, 0.507);
+}
+.cancel:hover{
+    animation: vibration;
+    animation-duration: 0.2s;
+    animation-timing-function:cubic-bezier(0.215, 0.610, 0.355, 1);
+    animation-iteration-count: 2;
+    background: red;
+    color: white;
+}
+
+.update{
+    background: rgba(246, 246, 68, 0.826);
+}
+.update:hover{
+    background: rgb(171, 171, 2);
+    color: white;
+}
+
+.create{
+    background: rgba(69, 245, 69, 0.637);
+}
+
+.create:hover{
+    background: rgb(0, 255, 0);
+    color: white;
+}

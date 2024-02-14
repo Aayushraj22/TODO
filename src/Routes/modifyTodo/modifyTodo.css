@@ -1,0 +1,64 @@
+.modal-container{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    border-radius: 1rem;
+    top: 20dvh;
+    left: 10%;
+    right: 10%;
+    background-color: white;
+    box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.466);
+}
+
+.go-back-container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.go-back{
+    gap: 0.6rem;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 0.2rem;
+}
+.go-back:hover{
+    background-color: rgb(105, 154, 217);
+    cursor: pointer;
+    color: white;
+}
+
+.input-box{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-box > label{
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    font-weight: 600;
+}
+.input-box > .inputElement{
+    padding: 0.8rem;
+    border: 1px solid;
+    outline: none;
+    border-radius: 0.5rem;
+}
+
+
+
+.inputElement:focus{
+    border-color: blue;
+} 
+
+
+.button-container{
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
+    padding-inline: 1rem;
+}

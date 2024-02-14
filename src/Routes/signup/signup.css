@@ -1,0 +1,48 @@
+.signup-container{
+    display: flex;
+    width: 70%;
+    flex-direction: column;
+    background: white;
+    height: fit-content;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 1px -1px 10px ;
+    /* border: 2px solid black; */
+}
+
+.signup-container > div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    /* border: 1px solid; */
+}
+.icons{
+    justify-content: flex-end !important;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.text-body{
+    padding-block: 2rem;
+    font-size: 3rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    /* font-weight: 600; */
+}
+
+.several-links{
+    padding-block: 4rem;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.msg-text{
+    padding-block: 2rem;
+}
+
+.msg-text >  span{
+    color: green;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
