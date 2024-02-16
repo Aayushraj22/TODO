@@ -63,8 +63,8 @@ function TodoCard({docRef}) {
         <h4>{title}</h4>
         <p style={{fontSize: '0.8rem', height: '100px', overflow: 'hidden', textOverflow:'ellipsis' }}>{description}</p>
         <div className="group-icons">
-            <i class="far fa-edit" style={{color: '#FFD43B'}} onClick={handleEditTask}></i>
-            <i class="fas fa-trash-alt" style={{color: '#ff0000'}} onClick={handleDeleteThisTask}></i>
+            <i className="far fa-edit" style={{color: '#FFD43B'}} onClick={handleEditTask}></i>
+            <i className="fas fa-trash-alt" style={{color: '#ff0000'}} onClick={handleDeleteThisTask}></i>
         </div>
     </div>
   )

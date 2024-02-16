@@ -48,7 +48,7 @@ function Form({formType='signup'}) {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-            localStorage.setItem('uid', user?.uid);
+            // localStorage.setItem('uid', user?.uid);
 
             const newUserData = {
                 email,

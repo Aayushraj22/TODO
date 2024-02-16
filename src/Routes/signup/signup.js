@@ -8,18 +8,10 @@ function Signup() {
     const navigate = useNavigate();
 
   function handleClosesignup(){
-    // const signupWrapper = document.querySelectorAll('.authWrapper-container')[1];
-    // signupWrapper.classList.remove('isOpen')
-
     return navigate('/')
   }
 
   function handleGoToSignin() {
-    // handleClosesignup();
-
-    // const signinWrapper = document.querySelectorAll('.authWrapper-container')[0];
-    // signinWrapper.classList.add('isOpen')
-
     return navigate('/signin')
   }
 
@@ -40,12 +32,6 @@ return (
     </div>
 
     <div className="several-links">
-        <Button >
-            <span >
-                <i className="fa-brands fa-google " style={{marginRight: '1rem'}}></i>
-                SignUp with Google
-            </span>
-        </Button>
         <Button onClick={handleOpenEmailWindow}>
             <span >
                 <i className="fa-solid fa-envelope" style={{marginRight: '1rem'}}></i>
