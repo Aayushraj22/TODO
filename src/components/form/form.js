@@ -1,16 +1,19 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import './form.css'
 import Button from '../button/Button'
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { app, db } from '../../firebase/config';
 import { useDispatch } from 'react-redux';
-import {isAuthenticUser} from '../../Redux/authslice'
-import { useNavigate } from 'react-router-dom';
-import { addDoc, collection, query, where, getDocs} from 'firebase/firestore';
+import { isAuthenticUser } from '../../Redux/authslice'
+import { useNavigate, useLocation } from 'react-router-dom';
+import { addDoc, collection, query, where, getDocs } from 'firebase/firestore';
 
-function Form({formType='signup'}) {
+function Form() {
     const dispatch = useDispatch()
     const navigate = useNavigate();
+    const location = useLocation();
+    const formType = location.state.formType;
+
 
     const [formData, setFormData] = useState({
         firstName: '',
@@ -19,7 +22,7 @@ function Form({formType='signup'}) {
         password: '',
     })
 
-    const {firstName, lastName, email, password} = formData;
+    const { firstName, lastName, email, password } = formData;
 
     const handleToChangeInput = (e) => {
         const key = e.target.name;
@@ -30,19 +33,16 @@ function Form({formType='signup'}) {
         })
     }
 
-    function handleCloseAuthWindow(){
-        handleGoBack();
+    // function handleCloseAuthWindow(){
+    //     navigate('/', {replace: 'true'})
+    // }
 
-        navigate('/')
-    }
-
-    function handleGoBack(){
-        const formElement = document.querySelector('.form-container');
-        formElement.classList.remove('isOpenZ4');
+    function handleGoBack() {
+        navigate(-1, { replace: 'true' });
     }
 
 
-    async function handleToSignUpWithEmailAndPassword(email, password){
+    async function handleToSignUpWithEmailAndPassword(email, password) {
         const auth = getAuth(app);
 
         try {
@@ -59,7 +59,7 @@ function Form({formType='signup'}) {
                 lastName,
             }
             // store the user's data in the todoUsers collection db
-            await addDoc(collection(db,'todoUsers'), newUserData);
+            await addDoc(collection(db, 'todoUsers'), newUserData);
 
             // move to home page after successfully signin
             return navigate('/');
@@ -67,8 +67,8 @@ function Form({formType='signup'}) {
             console.log('error from signup page')
         }
 
-        
-        
+
+
     }
 
     async function handleToSignInWithEmailAndPassword(email, password) {
@@ -81,12 +81,12 @@ function Form({formType='signup'}) {
             const uidQuery = query(collection(db, 'todoUsers'), where('uid', '==', uid));
             const querySnapshot = await getDocs(uidQuery);
 
-            // no document present in todoUsers collection with uid === {uid}, this occurs because i'm sharing the userAuthentication with two application, so use the user which has signup using this application signup window
-            if(querySnapshot.empty){
+            // no document present in todoUsers collection with uid === {uid}, this occurs because i'm sharing the userAuthentication with two application, so use only those user which has signup using this application signup window
+            if (querySnapshot.empty) {
                 console.log('this user had been signup through the other application signup window')
-            }else{  
+            } else {
                 querySnapshot.forEach(doc => {
-                    localStorage.setItem('uid',doc.ref.id);
+                    localStorage.setItem('uid', doc.ref.id);
                     dispatch(isAuthenticUser(true))
                 })
 
@@ -95,82 +95,88 @@ function Form({formType='signup'}) {
             }
         } catch (error) {
             // show error message to the user
-            if(error.code === 'auth/invalid-credential')
-                console.log('error : ',error);
+            if (error.code === 'auth/invalid-credential')
+                console.log('error : ', error);
             else    // this will be problem other than wrong email and  password
                 console.log(' and message : -> ', error.message)
         }
 
     }
 
-    function customChecks(){
+    function customChecks() {
         // this check is only for signup as there user have to fill its firstname and lastname
-        if(formType === 'signup' && !(firstName && lastName)){
+        if (formType === 'signup' && !(firstName && lastName)) {
             return false;
         }
 
         // this check is used in both condition, signin and signup
-        if(email && password && password.length >= 6 ){
+        if (email && password && password.length >= 6) {
             return true;
         }
 
         return false;
     }
 
-    function handleToGetAutherised(){
+    function handleToGetAutherised(e) {
+        e.preventDefault();
 
-        if(!customChecks()){
+        if (!customChecks()) {
             console.log('input fields are not provided properly')
-            return; 
+            return;
         }
 
-        if(formType === 'signin'){
+        if (formType === 'signin') {
             handleToSignInWithEmailAndPassword(email, password);
-        }else {
-            handleToSignUpWithEmailAndPassword(email,password);
+        } else {
+            handleToSignUpWithEmailAndPassword(email, password);
         }
     }
 
 
 
-  return (
-    <div className='form-container'>
-        <div className="form">
-            <div className="icons">
-                <i className="fa-solid fa-xmark" onClick={handleCloseAuthWindow}></i>
-            </div>
-            <h1 style={{marginBottom: '1rem'}}>Fill the fields</h1>
+    return (
+        <div className='form-container'>
+            <div className="form-container-with-back-button">
 
-            {formType==='signup' && <>
-                <div className="input-fields">
-                    <input type="text" name="firstName" placeholder='Firstname' value={firstName} onChange={handleToChangeInput} />
+                <div className="form-icons">
+                    <span className='go-back' onClick={handleGoBack}>
+                        <i className="fa-solid fa-angle-left"></i>
+                        Back
+                    </span>
                 </div>
-                <div className="input-fields">
-                    <input type="text" name="lastName" placeholder='Lastname' value={lastName} onChange={handleToChangeInput} />
-                </div>
-            </>}
+                <form className="form">
+                    {/* <h1 style={{marginBottom: '1rem'}}>Fill the fields</h1> */}
 
-            <div className="input-fields">
-                <input type="email" name="email" placeholder='Email' value={email} onChange={handleToChangeInput}  />
-            </div>
-            <div className="input-fields">
-                <input type="password" name="password" placeholder='Password' value={password} onChange={handleToChangeInput}  />
-            </div>
+                    {formType === 'signup' && <>
+                        <div className="input-fields">
+                            <input type="text" name="firstName" placeholder='Firstname' value={firstName} onChange={handleToChangeInput} title='FirstName' />
+                        </div>
+                        <div className="input-fields">
+                            <input type="text" name="lastName" placeholder='Lastname' value={lastName} onChange={handleToChangeInput} title='LastName' />
+                        </div>
+                    </>}
 
-            {/* {formType==='signup' && <>
+                    <div className="input-fields">
+                        <input type="email" name="email" placeholder='Email' value={email} onChange={handleToChangeInput} title='Enter your Email' />
+                    </div>
+                    <div className="input-fields">
+                        <input type="password" name="password" placeholder='Password' value={password} onChange={handleToChangeInput} title='Enter your Password' autoComplete='current-password' />
+                    </div>
+
+                    {/* {formType==='signup' && <>
                 <div className="input-fields">
                     <input type="password" name="re-password"  />
                 </div>
             </>} */}
 
-            <Button onClick={handleToGetAutherised}>Submit</Button>
-            <p onClick={handleGoBack} style={{cursor: 'pointer'}}>
-                <i className="fa-solid fa-arrow-left fa-fade"></i> <span>Back</span>
-            </p>
+                    <div className="input-fields">
+                        <Button onClick={handleToGetAutherised}>Submit</Button>
+                    </div>
 
+                </form>
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default Form

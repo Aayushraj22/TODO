@@ -2,7 +2,6 @@ import React from 'react'
 import './signin.css'
 import Button from '../../components/button/Button';
 import { useNavigate } from 'react-router-dom';
-import Form from '../../components/form/form';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../firebase/config';
@@ -28,9 +27,8 @@ function Signin() {
         return navigate('/signup');
     }
 
-    function handleOpenEmailWindow(){
-        const formElement = document.querySelector('.form-container')
-        formElement.classList.add('isOpenZ4')
+    function handleToOpenEmailWindow(){
+        navigate('/withEmail', {state: {formType: 'signin'}})
     }
 
     async function handleSigninWithGoogle() {
@@ -94,7 +92,6 @@ function Signin() {
 
   return (
     <div className='signin-container'>
-        <Form formType='signin' />
         <div className="icons">
             <i className="fa-solid fa-xmark" onClick={handleCloseSignIn}></i>
         </div>
@@ -109,7 +106,7 @@ function Signin() {
                     SignIn with Google
                 </span>
             </Button>
-            <Button onClick={handleOpenEmailWindow}>
+            <Button onClick={handleToOpenEmailWindow}>
                 <span >
                     <i className="fa-solid fa-envelope" style={{marginRight: '1rem'}}></i>
                     SignIn with Email

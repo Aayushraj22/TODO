@@ -1,6 +1,6 @@
 .signup-container{
     display: flex;
-    width: 70%;
+    width: max(300px, 70%);
     flex-direction: column;
     background: white;
     height: fit-content;
@@ -19,13 +19,13 @@
 }
 .icons{
     justify-content: flex-end !important;
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
     cursor: pointer;
 }
 
 .text-body{
-    padding-block: 2rem;
-    font-size: 3rem;
+    padding-block: 1rem;
+    font-size: clamp(1.5rem, 5vw, 3rem);
     font-family: Georgia, 'Times New Roman', Times, serif;
     /* font-weight: 600; */
 }

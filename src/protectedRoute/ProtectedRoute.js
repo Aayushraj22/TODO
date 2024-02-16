@@ -1,5 +1,5 @@
 import React from 'react'
-import {Navigate} from 'react-router-dom'
+import {Navigate, Outlet} from 'react-router-dom'
 import './protectedRoute.css'
 
 function ProtectedRoute({children}) {
@@ -10,7 +10,7 @@ function ProtectedRoute({children}) {
 
   return (
     <>
-    {children}
+    <Outlet />
     </>
   )
 }

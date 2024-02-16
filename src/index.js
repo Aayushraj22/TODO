@@ -4,8 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import store, {persistor} from './Redux/store';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import store, { persistor } from './Redux/store';
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import ReadTodo from './Routes/readTodo/ReadTodo';
 import ModifyTodo from './Routes/modifyTodo/ModifyTodo';
 import Signin from './Routes/signin/signin';
@@ -15,6 +15,30 @@ import { PersistGate } from 'redux-persist/integration/react';
 import Home from './components/home/Home';
 import AuthWrapper from './HOC/authWrapper/authWrapper'
 import Wrapper from './HOC/wrapper/wrapper';
+import Form from './components/form/form';
+
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<App />} >
+      <Route index element={<Home />} />
+      <Route element={<ProtectedRoute />}>
+        <Route path='readTodo' element={<ReadTodo />} />
+        <Route path='modifyTodo/:id' element={<Wrapper><ModifyTodo modalType='update' /></Wrapper>} />
+        <Route path='createTodo' element={<Wrapper><ModifyTodo modalType='create' /></Wrapper>} />
+      </Route>
+      
+      <Route element={<AuthWrapper />}>
+        <Route path='signin' element={<Signin />} /> 
+        <Route path='signup' element={<Signup />} /> 
+        <Route path='withEmail' element={<Form />} />
+      </Route>
+
+    </Route>
+  )
+)
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,20 +46,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store} >
       <PersistGate loading={null} persistor={persistor} >
-      <Router >
-          <Routes>
-            <Route path='/' element={<App />} >
-              <Route index element={<Home />} />
-              <Route path='readTodo' element={<ProtectedRoute><ReadTodo /></ProtectedRoute> } />
-              <Route path='modifyTodo/:id' element={<ProtectedRoute ><Wrapper><ModifyTodo modalType='update' /></Wrapper>  </ProtectedRoute> } />
-              <Route path='createTodo' element={<ProtectedRoute ><Wrapper><ModifyTodo modalType='create' /></Wrapper>  </ProtectedRoute> } />
-              <Route path='signin' element={<AuthWrapper><Signin /></AuthWrapper>} />
-              <Route path='signup' element={<AuthWrapper><Signup /></AuthWrapper>} />
-
-            </Route>
-            
-          </Routes>
-      </Router>
+        <RouterProvider router={router} />
       </PersistGate>
     </Provider>
   </React.StrictMode>

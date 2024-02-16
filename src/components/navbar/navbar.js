@@ -8,7 +8,7 @@ import {isAuthenticUser} from '../../Redux/authslice';
 
 function Navbar() {
   const selector = useSelector(state => state.persistedReducer.authenticUser)
-  console.log('authuser 123: ',selector)
+  // console.log('authuser 123: ',selector)
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

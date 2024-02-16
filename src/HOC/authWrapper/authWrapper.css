@@ -1,14 +1,13 @@
 .authWrapper-container{
-    /* border: 10px solid blue; */
-    position: fixed;
-    height: 100dvh;
+    min-height: 100dvh;
     width: 100dvw;
     display: flex;
     flex-direction: column;
     background: rgba(255, 255, 255, 0.473);
     align-items: center;
-    border: 10px solid blue;
-    padding-top: 2rem;
+    /* border: 10px solid blue; */
+    padding-top: 120px;
+    padding-bottom: 1rem;
     justify-content: center;
 }
 

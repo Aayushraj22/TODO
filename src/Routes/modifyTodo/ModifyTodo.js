@@ -126,18 +126,12 @@ function ModifyTodo({modalType}) {
         }
         
     }
-    
-    function handleGoBack(){
-        navigate(-1)
-    }
+
 
 
   return (
     <form className='modal-container'>
         <ToastContainer />
-        <div className="go-back-container">
-            <span className='go-back' onClick={handleGoBack}><i class="fa-solid fa-angle-left"></i>Back</span>
-        </div>
         <div className="input-box">
             <label htmlFor="title">Title</label>
             <input type="text"  id='title' className='inputElement' value={title} onChange={handleOnChangeInput} required/>

@@ -1,11 +1,14 @@
 import React from 'react'
 import './signup.css'
 import Button from '../../components/button/Button';
-import { useNavigate } from 'react-router-dom';
-import Form from '../../components/form/form';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 
 function Signup() {
     const navigate = useNavigate();
+    const location = useLocation();
+
+    console.log('location: ',location.pathname);
 
   function handleClosesignup(){
     return navigate('/')
@@ -15,15 +18,14 @@ function Signup() {
     return navigate('/signin')
   }
 
-  function handleOpenEmailWindow(){
-    const formElement = document.querySelector('.form-container')
-    formElement.classList.add('isOpenZ4')
+  function handleToOpenEmailWindow(){
+    navigate('/withEmail', {state: {formType: 'signup'}});
 }
 
 
 return (
 <div className='signup-container'>
-    <Form formType='signup' />
+    
     <div className="icons">
         <i className="fa-solid fa-xmark" onClick={handleClosesignup}></i>
     </div>
@@ -32,7 +34,7 @@ return (
     </div>
 
     <div className="several-links">
-        <Button onClick={handleOpenEmailWindow}>
+        <Button onClick={handleToOpenEmailWindow} >
             <span >
                 <i className="fa-solid fa-envelope" style={{marginRight: '1rem'}}></i>
                 SignUp with Email

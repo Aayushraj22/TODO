@@ -1,24 +1,48 @@
 .form-container{
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    width: max(320px,50%);
+    height: 100%;
     background: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: -4;
 }
 
-.isOpenZ4{
-    z-index: 4;
+.form-container-with-back-button{
+    width: 100%;
+    height: fit-content;
+    padding: clamp(0.5rem, 4vw, 1.5rem);
+    border-radius: 0.5rem;
+    background: whitesmoke;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-icons{
+    display: flex;
+    width: 100%;
+    font-size: 0.9rem;
+    justify-content: flex-end;
+}
+
+.go-back{
+    gap: 0.6rem;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 0.2rem;
+}
+.go-back:hover{
+    background-color: rgb(105, 154, 217);
+    cursor: pointer;
+    color: white;
 }
 
 .form{
-    width: fit-content;
+    width: 100%;
     height: fit-content;
-    padding: 2rem;
+    padding: clamp(1rem, 5vw, 2rem);
     border-radius: 1rem;
     background: whitesmoke;
     color: black;
@@ -27,19 +51,24 @@
     gap: 1rem;
     align-items: center;
 }
-.form > .icons{
-    text-align: right;
-    width: 100%;
-}
+
 
 .input-fields{
-    border: 1px solid;
+    width: 100%;
+}
+.input-fields:last-child{
+    padding-top: 1rem;
 }
 
 .input-fields > input{
-    width: max(300px, 50dvw);
-    padding: 0.5rem 0.8rem;
+    width: 100%;
+    padding: 0.5rem ;
     border: 1px solid;
+    border-radius: 0.3rem;
     font-size: 0.9rem;
-    
+    outline: none;
+}
+
+.input-fields > input:focus{
+    border-color: blue;
 }

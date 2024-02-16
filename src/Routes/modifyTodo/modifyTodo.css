@@ -12,23 +12,6 @@
     box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.466);
 }
 
-.go-back-container{
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-}
-.go-back{
-    gap: 0.6rem;
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    border-radius: 0.2rem;
-}
-.go-back:hover{
-    background-color: rgb(105, 154, 217);
-    cursor: pointer;
-    color: white;
-}
 
 .input-box{
     width: 100%;
