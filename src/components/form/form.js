@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { isAuthenticUser } from '../../Redux/authslice'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { addDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Form() {
     const dispatch = useDispatch()
@@ -33,9 +34,6 @@ function Form() {
         })
     }
 
-    // function handleCloseAuthWindow(){
-    //     navigate('/', {replace: 'true'})
-    // }
 
     function handleGoBack() {
         navigate(-1, { replace: 'true' });
@@ -48,7 +46,6 @@ function Form() {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-            // localStorage.setItem('uid', user?.uid);
 
             const newUserData = {
                 email,
@@ -58,13 +55,16 @@ function Form() {
                 firstName,
                 lastName,
             }
-            // store the user's data in the todoUsers collection db
+            // add the user's data in the todoUsers collection db
             await addDoc(collection(db, 'todoUsers'), newUserData);
 
+            //show the status message to user
+            toast.success('successfully user SignUp');
+
             // move to home page after successfully signin
-            return navigate('/');
+            return navigate('/signin');
         } catch (error) {
-            console.log('error from signup page')
+            toast.error('Try again, not signup');
         }
 
 
@@ -83,22 +83,27 @@ function Form() {
 
             // no document present in todoUsers collection with uid === {uid}, this occurs because i'm sharing the userAuthentication with two application, so use only those user which has signup using this application signup window
             if (querySnapshot.empty) {
-                console.log('this user had been signup through the other application signup window')
+                toast.error('use other email as email already used');
+                return;
             } else {
                 querySnapshot.forEach(doc => {
                     localStorage.setItem('uid', doc.ref.id);
                     dispatch(isAuthenticUser(true))
                 })
 
+                toast.success('signin successfully')
                 // now move to the home page
-                navigate('/')
+                setTimeout(() => {
+                    navigate('/')
+                }, 3000);
             }
         } catch (error) {
             // show error message to the user
-            if (error.code === 'auth/invalid-credential')
-                console.log('error : ', error);
-            else    // this will be problem other than wrong email and  password
-                console.log(' and message : -> ', error.message)
+            if (error.code === 'auth/invalid-credential'){
+                toast.error('invalid email or password')
+            }else{    // this will be problem other than wrong email and  password
+                toast.error('signin error, try again');
+            }
         }
 
     }
@@ -121,7 +126,7 @@ function Form() {
         e.preventDefault();
 
         if (!customChecks()) {
-            console.log('input fields are not provided properly')
+            toast.error('All fields are required');
             return;
         }
 
@@ -135,6 +140,8 @@ function Form() {
 
 
     return (
+    <>
+        <ToastContainer />
         <div className='form-container'>
             <div className="form-container-with-back-button">
 
@@ -176,6 +183,7 @@ function Form() {
                 </form>
             </div>
         </div>
+    </>
     )
 }
 

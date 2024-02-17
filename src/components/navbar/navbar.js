@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { dark, light } from '../../Redux/themeSlice';
 import { useNavigate } from 'react-router-dom';
 import {isAuthenticUser} from '../../Redux/authslice';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Navbar() {
   const selector = useSelector(state => state.persistedReducer.authenticUser)
@@ -21,29 +22,33 @@ function Navbar() {
     function handleToLogout() {
       localStorage.removeItem('uid');
       dispatch(isAuthenticUser(false))
-      navigate('/');
+      toast.success('Logout Successfully');
+      navigate('/', {replace: 'true'});
     }
 
 
   return (
-    <div className="navbar">
-        <span style={{fontSize: '2rem', fontWeight: '600', letterSpacing: '0.4rem' }}>Todo</span>
-        <div className="authLinks">
-          {selector ? <Button onClick={handleToLogout}>Logout </Button> : (<>
-            <Button onClick={() => handleShowAuthWindow('signin')}>signin</Button>
-            <Button onClick={() => handleShowAuthWindow('signup')}>signup</Button>
-          </>)}
-            
-            
-            {/* <Button onClick={() => {
-              if(theme.color === 'white'){
-                dispatch(light())
-              }else{
-                dispatch(dark())
-              }
-            }}>{theme.color==='white' ? 'Light' : 'Dark'}</Button> */}
-        </div>
-    </div>
+    <>
+      <ToastContainer />
+      <div className="navbar">
+          <span style={{fontSize: '2rem', fontWeight: '600', letterSpacing: '0.4rem' }}>Todo</span>
+          <div className="authLinks">
+            {selector ? <Button onClick={handleToLogout}>Logout </Button> : (<>
+              <Button onClick={() => handleShowAuthWindow('signin')}>signin</Button>
+              <Button onClick={() => handleShowAuthWindow('signup')}>signup</Button>
+            </>)}
+              
+              
+              {/* <Button onClick={() => {
+                if(theme.color === 'white'){
+                  dispatch(light())
+                }else{
+                  dispatch(dark())
+                }
+              }}>{theme.color==='white' ? 'Light' : 'Dark'}</Button> */}
+          </div>
+      </div>
+    </>
   )
 }
 

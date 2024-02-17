@@ -1,14 +1,11 @@
 import React from 'react'
 import './signup.css'
 import Button from '../../components/button/Button';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 function Signup() {
     const navigate = useNavigate();
-    const location = useLocation();
-
-    console.log('location: ',location.pathname);
 
   function handleClosesignup(){
     return navigate('/')

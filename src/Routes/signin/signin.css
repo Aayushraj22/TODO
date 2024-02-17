@@ -6,7 +6,7 @@
     height: fit-content;
     padding: 1rem;
     border-radius: 1rem;
-    box-shadow: 1px -1px 10px ;
+    box-shadow: 1px -1px 5px rgb(115, 128, 243);
 }
 
 .signin-container > div{

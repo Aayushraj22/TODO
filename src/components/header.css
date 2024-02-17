@@ -11,16 +11,16 @@
 
 .header-title{
     width: 70%;
-    font-size: 4rem;
+    font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 700;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin-bottom: 1rem;
 }
 .header-subTitle{
     width: 70%;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: rgba(77, 77, 245, 0.957);
+    font-size: clamp(0.9rem, 5vw, 1.5rem);
+    font-weight: 500;
+    color: gray;
 }
 
 @media screen and (max-width: 768px) {

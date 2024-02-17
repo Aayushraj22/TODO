@@ -32,11 +32,13 @@
     align-items: center;
     padding: 0.5rem 1rem;
     border-radius: 0.2rem;
+    background-image: linear-gradient(to bottom, whitesmoke, white);
 }
 .go-back:hover{
     background-color: rgb(105, 154, 217);
     cursor: pointer;
     color: white;
+    background-image: none;
 }
 
 .form{

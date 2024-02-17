@@ -23,7 +23,7 @@ function TodoCard({docRef}) {
                 const data = snapshot.data();
                 
                 if(data){
-                    setTodoData({title: data.title, description: data.description});
+                    setTodoData({title: data?.title, description: data?.description, readingStatus: data?.readingStatus, postedOn: data?.postedOn});
                 }
                 
             } catch (error) {
@@ -34,7 +34,8 @@ function TodoCard({docRef}) {
     }, [])
     
 
-    async function handleDeleteThisTask(){
+    async function handleDeleteThisTask(e){
+        e.stopPropagation()
         
         const updatedTodoList = globalTodoList.filter(todoRefId => todoRefId !== docRef)
         
@@ -53,16 +54,23 @@ function TodoCard({docRef}) {
         } 
     }
 
-    function handleEditTask() { 
+    function handleEditTask(e) {
+        e.stopPropagation() 
         navigate(`/modifyTodo/${docRef}`);
+    }
+
+    function handleReadingTodo(){
+        navigate('/readTodo', {state: {todoData, docRef }});
     }
 
 
   return (
-    <div className='taskCard-container'>
-        <h4>{title}</h4>
-        <p style={{fontSize: '0.8rem', height: '100px', overflow: 'hidden', textOverflow:'ellipsis' }}>{description}</p>
-        <div className="group-icons">
+    <div className='taskCard-container' onClick={handleReadingTodo}>
+        <div className="taskcard-content">
+            <h4>{title?.slice(0,1).toUpperCase() + title?.slice(1)}</h4>
+            <p style={{fontSize: '0.8rem', flex: 1 }}>{description?.substring(0,50) + '...'}</p>
+        </div>
+        <div className="taskcard-icons">
             <i className="far fa-edit" style={{color: '#FFD43B'}} onClick={handleEditTask}></i>
             <i className="fas fa-trash-alt" style={{color: '#ff0000'}} onClick={handleDeleteThisTask}></i>
         </div>

@@ -10,6 +10,20 @@ import { collection, addDoc, getDoc, doc, updateDoc } from 'firebase/firestore';
 function ModifyTodo({modalType}) {
 
     const todoDocRef = useParams()?.id;
+    const navigate = useNavigate();
+
+    // getting the date of day of creation of new todo.
+    const date = new Date();
+    const dayOfCreation = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();  
+    const [task, setTask] = useState({
+        userDocRef: '',
+        title: '',
+        description: '',
+        postedOn: String(dayOfCreation),
+        readingStatus: 'pending',
+    })
+
+    const { title, description} = task;
 
     useEffect(() => {
         
@@ -41,13 +55,6 @@ function ModifyTodo({modalType}) {
 
     }, [])
 
-    const navigate = useNavigate();
-    const [task, setTask] = useState({
-        userDocRef: '',
-        title: '',
-        description: '',
-    })
-    const { title, description} = task;
 
     function handleCancelTodo(){
         navigate('/')
@@ -82,7 +89,7 @@ function ModifyTodo({modalType}) {
             const uid = localStorage.getItem('uid');
 
             if(modalType === 'create'){
-
+                
                 const myNewTask = {...task, userDocRef: uid};
 
                 // add new doc to the todoDocs collection in db
@@ -116,7 +123,7 @@ function ModifyTodo({modalType}) {
 
                 toast.success('Successfully Todo Created')
             }else { // update data in db
-                await updateDoc(doc(db,'todoDocs', todoDocRef), {title, description});
+                await updateDoc(doc(db,'todoDocs', todoDocRef), {title, description, readingStatus:'pending'});
                 toast.success('Successfully Todo Modified')
             }
 
@@ -127,11 +134,21 @@ function ModifyTodo({modalType}) {
         
     }
 
+    function handleGoBack() {
+        navigate(-1, { replace: 'true' });
+      }
+
 
 
   return (
     <form className='modal-container'>
         <ToastContainer />
+        <div className="form-icons">
+            <span className='go-back' onClick={handleGoBack}>
+                <i className="fa-solid fa-angle-left"></i>
+                Back
+            </span>
+        </div>
         <div className="input-box">
             <label htmlFor="title">Title</label>
             <input type="text"  id='title' className='inputElement' value={title} onChange={handleOnChangeInput} required/>

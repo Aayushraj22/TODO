@@ -6,8 +6,7 @@
     height: fit-content;
     padding: 1rem;
     border-radius: 1rem;
-    box-shadow: 1px -1px 10px ;
-    /* border: 2px solid black; */
+    box-shadow: 1px -1px 5px rgb(115, 128, 243);
 }
 
 .signup-container > div{
@@ -15,19 +14,30 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    /* border: 1px solid; */
 }
 .icons{
     justify-content: flex-end !important;
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    font-size: clamp(0.8rem, 5vw, 1.5rem);
     cursor: pointer;
+}
+
+.icons > i{
+    /* border: 1px solid ; */
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    transition: all 0.1s ease-in-out;
+}
+
+.icons > i:hover{
+    /* box-shadow: 1px 1px 2px inset, -1px -1px 2px inset; */
+    color: white;
+    background-color: black;
 }
 
 .text-body{
     padding-block: 1rem;
     font-size: clamp(1.5rem, 5vw, 3rem);
     font-family: Georgia, 'Times New Roman', Times, serif;
-    /* font-weight: 600; */
 }
 
 .several-links{

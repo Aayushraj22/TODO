@@ -14,10 +14,10 @@ function Home() {
     // const bgColor = ;
   return (
     <>
-        <Wrapper style={{background: '#b3ebf1'}}>
+        <Wrapper style={{background: 'white'}}>
             <Header />
         </Wrapper>
-        {isAuthenticated && <Wrapper style={{background: '#a8d4f7'}}>
+        {isAuthenticated && <Wrapper style={{background: 'whitesmoke'}}>
                     <TodoListContainer />
                 </Wrapper>
         }

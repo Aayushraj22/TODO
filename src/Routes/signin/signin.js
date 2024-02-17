@@ -13,17 +13,10 @@ function Signin() {
     const dispatch = useDispatch();
 
     function handleCloseSignIn(){
-        // const signinWrapper = document.querySelectorAll('.authWrapper-container')[0];
-        // signinWrapper.classList.remove('isOpen')
-
         return navigate('/');
     }
 
     function handleGoToSignup(){
-        // handleCloseSignIn();
-        // const signupWrapper = document.querySelectorAll('.authWrapper-container')[1];
-        // signupWrapper.classList.add('isOpen')
-
         return navigate('/signup');
     }
 

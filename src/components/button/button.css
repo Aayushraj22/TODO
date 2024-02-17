@@ -1,21 +1,22 @@
 .btn{
-    border-radius: 0.3rem;
-    padding: 0.5rem 1rem;
+    border-radius: 0.4rem;
+    padding: 0.6rem 1.2rem;
     cursor: pointer;
     width: fit-content;
-    font-weight: 600;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 1.1rem;
-    box-shadow: 0 1px 5px rgb(145, 140, 140);
+    box-shadow: 0 1px 5px rgb(145, 140, 140), 0 0 0;
     transition: 0.1s all ease-in-out;
     border: none;
 }
 
 .btn:hover{
-    background: rgb(151, 197, 232);
+    background: rgb(115, 128, 243);
+    color: white;
 }
 
 .create-task{
-    background: rgba(184, 135, 11, 0.653);
+    background: rgba(249, 184, 18, 0.653);
 }
 .create-task:hover{
     background: darkgoldenrod;
