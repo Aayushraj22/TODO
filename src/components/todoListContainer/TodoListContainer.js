@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useEffect} from 'react'
 import './todoListContainer.css'
 import Button from '../button/Button'
 import { useNavigate } from 'react-router-dom'
@@ -8,16 +8,15 @@ import TodoCard from '../todoCard/TodoCard'
 import { useDispatch, useSelector } from 'react-redux'
 import { setTodoTaskList } from '../../Redux/slice/TodoSlice'
 import { toggleLoading } from '../../Redux/slice/loaderSlice'
+import { compactView, listView } from '../../Redux/slice/viewSlice'
 
 function TodoListContainer() {
-    const hello = 1;
     const navigate = useNavigate()
-    const [todolist, setTodolist] = useState([])
+    const todolist = useSelector(state => state.todos)
     const dispatch = useDispatch();
-    const todoTaskList = useSelector(state => state.todos);
+    const {containerListView} = useSelector(state => state.persistedReducer.listView)
 
     useEffect(() => {
-        // console.log('mounting....    ',todoTaskList);
         // set the loader as data is fetching
         dispatch(toggleLoading(true));
 
@@ -35,16 +34,13 @@ function TodoListContainer() {
 
                 if(userData?.myTodos) {
                     dispatch(setTodoTaskList(userData?.myTodos))
-                    setTodolist(userData?.myTodos);
                 }
             } catch (error) {
                 console.log('error from todolist-container')
             }  
         }
 
-        // return function (){
-        //     console.log('unmounting........')
-        // }
+        
 
    }, [])
 
@@ -52,19 +48,17 @@ function TodoListContainer() {
         navigate('/createTodo')
     }
 
-    function handleChangeListView(view) {
-        const todocards = document.querySelectorAll('.taskCard-container');
-        const todoContainerList = document.querySelector('.content-task-container');
 
-        if(view === 'list'){
-            todoContainerList.classList.add('toggle-content-task-container')
-            todocards.forEach(todo => todo.classList.add('toggle-taskcard-container'))
+    // .... function to toggle the view of todo task ..... // 
+    function handleToggleListView(view){
+        if(view === 'compact'){
+            dispatch(compactView());
         }else {
-            todoContainerList.classList.remove('toggle-content-task-container')
-            todocards.forEach(todo => todo.classList.remove('toggle-taskcard-container'))
+            dispatch(listView());
         }
-
     }
+
+    
 
 
   return (
@@ -75,12 +69,12 @@ function TodoListContainer() {
         </div>
         <div className="task-container">
             <div className="title-task-container">
-                <i className="fas fa-th" title='compact' onClick={() => handleChangeListView('compact')}></i>
-                <i className="fas fa-list-alt" title='list' onClick={() => handleChangeListView('list')}></i>
+                <i className="fas fa-th" title='compact' onClick={() => handleToggleListView('compact')}></i>
+                <i className="fas fa-list-alt" title='list' onClick={() => handleToggleListView('list')}></i>
             </div>
-            <div className="content-task-container">
+            <div className={`content-task-container ${containerListView}`}>
 
-                {todolist.length ? todolist.map(refId => <TodoCard key={refId} docRef={refId} />) : <h3 className='text-center'>Now Start by creating your todo</h3>}
+                {todolist?.length ? todolist.map(refId => <TodoCard key={refId} docRef={refId} />) : <h3 className='text-center'>Now Start by creating your todo</h3>}
             </div>
         </div>
     </div>

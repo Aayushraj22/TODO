@@ -1,18 +1,17 @@
 import React from 'react'
-import { HashLoader } from 'react-spinners'
+import { CircleLoader } from 'react-spinners'
 import './loader.css'
 
 function Loader() {
     return (
-    <div className='loader'>
-        <HashLoader
-            color="#0abff2"
-            cssOverride={null}
-            loading
-            size={80}
-            speedMultiplier={1}
-        />
-    </div>
+        <div className='loader'>
+            <CircleLoader
+                color="#0712c0"
+                cssOverride={null}
+                size={60}
+                speedMultiplier={1}
+            />
+        </div>
     )
 }
 

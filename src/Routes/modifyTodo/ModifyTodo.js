@@ -149,7 +149,7 @@ function ModifyTodo({modalType}) {
             }else { // update data in db
                 await updateDoc(doc(db,'todoDocs', todoDocRef), {title, description, readingStatus:'pending'});
 
-                toastAndDispatch('Todo Created Successfully','success')
+                toastAndDispatch('Todo updated Successfully','success')
             }
 
             

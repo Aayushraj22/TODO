@@ -5,6 +5,8 @@ import TodoReducer from './slice/TodoSlice'
 import storage from 'redux-persist/lib/storage'
 import { persistStore , persistReducer } from 'redux-persist';
 import LoadReducer from './slice/loaderSlice';
+import ViewReducer from './slice/viewSlice';
+
 const persistConfig = {
     key: 'root',
     storage,
@@ -13,6 +15,7 @@ const persistConfig = {
   const rootReducer = combineReducers({
     themeChanger: themeReducer,
     authenticUser: authUserReducer,
+    listView: ViewReducer,
  })
 
  const persistedReducer = persistReducer(persistConfig, rootReducer);

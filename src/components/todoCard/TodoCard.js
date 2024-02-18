@@ -10,6 +10,8 @@ function TodoCard({docRef}) {
     const dispatch = useDispatch();
     const globalTodoList = useSelector(state => state.todos)
     const navigate = useNavigate();
+    const {todoCardListView } = useSelector(state => state.persistedReducer.listView)
+
     const [todoData, setTodoData] = useState({})
     const {title, description} = todoData;
 
@@ -34,7 +36,7 @@ function TodoCard({docRef}) {
     }, [])
     
 
-    async function handleDeleteThisTask(e){
+    async function handleDeleteTask(e){
         e.stopPropagation()
         
         const updatedTodoList = globalTodoList.filter(todoRefId => todoRefId !== docRef)
@@ -48,7 +50,7 @@ function TodoCard({docRef}) {
 
             // delete the todo doc from 'todoDocs' collection of db
             await deleteDoc(doc(db,'todoDocs', docRef))
-
+            
         } catch (error) {
             console.log('from todoCard try to delete this todo and update at db and global state, but some error happens')
         } 
@@ -65,14 +67,14 @@ function TodoCard({docRef}) {
 
 
   return (
-    <div className='taskCard-container' onClick={handleReadingTodo}>
+    <div className={`taskCard-container ${todoCardListView}`} onClick={handleReadingTodo}>
         <div className="taskcard-content">
             <h4>{title && title?.slice(0,1).toUpperCase() + title?.slice(1)}</h4>
             <p style={{fontSize: '0.8rem', flex: 1 }}>{description && description?.substring(0,50) + '...'}</p>
         </div>
         <div className="taskcard-icons">
             <i className="far fa-edit" style={{color: '#FFD43B'}} onClick={handleEditTask}></i>
-            <i className="fas fa-trash-alt" style={{color: '#ff0000'}} onClick={handleDeleteThisTask}></i>
+            <i className="fas fa-trash-alt" style={{color: '#ff0000'}} onClick={handleDeleteTask}></i>
         </div>
     </div>
   )
