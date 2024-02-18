@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { dark, light } from '../../Redux/themeSlice';
 import { useNavigate } from 'react-router-dom';
 import {isAuthenticUser} from '../../Redux/authslice';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 function Navbar() {
   const selector = useSelector(state => state.persistedReducer.authenticUser)
@@ -29,7 +29,6 @@ function Navbar() {
 
   return (
     <>
-      <ToastContainer />
       <div className="navbar">
           <span style={{fontSize: '2rem', fontWeight: '600', letterSpacing: '0.4rem' }}>Todo</span>
           <div className="authLinks">

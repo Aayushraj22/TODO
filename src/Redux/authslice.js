@@ -7,8 +7,8 @@ const authUserSlice = createSlice({
     initialState,
     reducers: {
         isAuthenticUser: (state,action) => {
-            const userData = action.payload;
-            return userData;
+            const authStatus = action.payload;
+            return authStatus;
         }
     }
 })

@@ -67,8 +67,8 @@ function TodoCard({docRef}) {
   return (
     <div className='taskCard-container' onClick={handleReadingTodo}>
         <div className="taskcard-content">
-            <h4>{title?.slice(0,1).toUpperCase() + title?.slice(1)}</h4>
-            <p style={{fontSize: '0.8rem', flex: 1 }}>{description?.substring(0,50) + '...'}</p>
+            <h4>{title && title?.slice(0,1).toUpperCase() + title?.slice(1)}</h4>
+            <p style={{fontSize: '0.8rem', flex: 1 }}>{description && description?.substring(0,50) + '...'}</p>
         </div>
         <div className="taskcard-icons">
             <i className="far fa-edit" style={{color: '#FFD43B'}} onClick={handleEditTask}></i>

@@ -1,16 +1,21 @@
 import React, {useState, useEffect} from 'react'
 import './modifyTodo.css'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Button from '../../components/button/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import {db} from '../../firebase/config'
 import { collection, addDoc, getDoc, doc, updateDoc } from 'firebase/firestore';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleLoading } from '../../Redux/slice/loaderSlice';
+import { setTodoTaskList } from '../../Redux/slice/TodoSlice';
 
 function ModifyTodo({modalType}) {
 
+    const localTodoList = useSelector(state => state.todos);
     const todoDocRef = useParams()?.id;
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     // getting the date of day of creation of new todo.
     const date = new Date();
@@ -26,11 +31,14 @@ function ModifyTodo({modalType}) {
     const { title, description} = task;
 
     useEffect(() => {
-        
+
         // fetching the document using the docRefId from 'todoDoc' collection 
         if(todoDocRef){
+            dispatch(toggleLoading(true))
             getTodoDoc(todoDocRef);
         }
+
+        
 
         async function getTodoDoc(docRef){
             try {
@@ -51,6 +59,9 @@ function ModifyTodo({modalType}) {
                 // something to be written here so to handle the error(like network issue , or doc is not present in db)
                 console.log('as docref is dumy ')
             }
+
+            
+            dispatch(toggleLoading(false))
         }
 
     }, [])
@@ -67,23 +78,29 @@ function ModifyTodo({modalType}) {
         })
     }
 
-    //  ............  function to check all fields are filled, to add newtodo user must provide title and description
-    function checkFields(){
-        if(title==='' | description===''){
-            return false;
+    // ....... function to unset loader and show action corrosponding message .......... //
+    function toastAndDispatch(toastMsg, toastType){
+        dispatch(toggleLoading(false));
+        if(toastType === 'success'){
+            toast.success(toastMsg);
+        }else {
+            toast.error(toastMsg);
         }
-
-        return true;
     }
 
 
+    // ......... function to create a new todo or update the existing one ........ //
     async function handleUpdateOrCreateTodo(e) {
         e.preventDefault();
 
-        if(!checkFields()){
+        // all fields needs to be filled
+        if(title==='' | description===''){
             toast.error('all fields are required')
             return ;
         }
+
+        //show the loader while new todoTask stored in the db
+        dispatch(toggleLoading(true)); 
 
         try {
             const uid = localStorage.getItem('uid');
@@ -95,7 +112,7 @@ function ModifyTodo({modalType}) {
                 // add new doc to the todoDocs collection in db
                 const docRef = await addDoc(collection(db,'todoDocs'), myNewTask);
 
-                // add the ref of document of newly created todoTask in the array of myTodos(property), which present as property in user doc
+                // add the ref of newly created todoTask doc in the array of myTodos(property), which present as property in user doc
                 const user = await getDoc(doc(db,'todoUsers', uid));
                 if(user.exists()){
                     const userData = user.data();
@@ -110,26 +127,34 @@ function ModifyTodo({modalType}) {
                     await updateDoc(doc(db,'todoUsers',uid), {myTodos: arraylist});
                 }
 
+                // adding the new doc ref in the localTodoList
+                dispatch(setTodoTaskList([...localTodoList, docRef.id]));
+
                 // update the global state to render the new added todo
 
                 // ........  yeh abhi krna hai    ............. ///
 
-                // clear the data from component as data already store in db
+
+                // resetting the component state
                 setTask({
                     userDocRef: '',
                     title: '',
                     description: '',
+                    postedOn: String(dayOfCreation),
+                    readingStatus: 'pending',
                 })
 
-                toast.success('Successfully Todo Created')
+                
+                toastAndDispatch('Todo Created Successfully','success')
             }else { // update data in db
                 await updateDoc(doc(db,'todoDocs', todoDocRef), {title, description, readingStatus:'pending'});
-                toast.success('Successfully Todo Modified')
+
+                toastAndDispatch('Todo Created Successfully','success')
             }
 
             
         } catch (error) {
-            console.log('error from modifytodo')
+            toastAndDispatch('unsuccessfull attempt, Do Again !','error');
         }
         
     }
@@ -142,7 +167,6 @@ function ModifyTodo({modalType}) {
 
   return (
     <form className='modal-container'>
-        <ToastContainer />
         <div className="form-icons">
             <span className='go-back' onClick={handleGoBack}>
                 <i className="fa-solid fa-angle-left"></i>

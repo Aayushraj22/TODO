@@ -4,6 +4,7 @@ import authUserReducer from './authslice'
 import TodoReducer from './slice/TodoSlice'
 import storage from 'redux-persist/lib/storage'
 import { persistStore , persistReducer } from 'redux-persist';
+import LoadReducer from './slice/loaderSlice';
 const persistConfig = {
     key: 'root',
     storage,
@@ -19,6 +20,7 @@ const store = configureStore({
     reducer:{ 
       persistedReducer,
       todos: TodoReducer,
+      loadingStatus: LoadReducer,
     }
 })
 

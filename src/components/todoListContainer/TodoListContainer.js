@@ -5,20 +5,29 @@ import { useNavigate } from 'react-router-dom'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../firebase/config'
 import TodoCard from '../todoCard/TodoCard'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setTodoTaskList } from '../../Redux/slice/TodoSlice'
+import { toggleLoading } from '../../Redux/slice/loaderSlice'
 
 function TodoListContainer() {
+    const hello = 1;
     const navigate = useNavigate()
     const [todolist, setTodolist] = useState([])
     const dispatch = useDispatch();
+    const todoTaskList = useSelector(state => state.todos);
 
     useEffect(() => {
+        // console.log('mounting....    ',todoTaskList);
+        // set the loader as data is fetching
+        dispatch(toggleLoading(true));
+
         const uid = localStorage.getItem('uid');    // here uid is the docRefId of current user
         getAllTodoCreatedByUser(uid);
 
+        // remove the loader as data is fetching
+        dispatch(toggleLoading(false));
 
-
+        
         async function getAllTodoCreatedByUser(uid){ 
             try {
                 let userData = await getDoc(doc(db, 'todoUsers', uid));
@@ -30,11 +39,15 @@ function TodoListContainer() {
                 }
             } catch (error) {
                 console.log('error from todolist-container')
-            } 
+            }  
         }
 
-    }, [])
-    
+        // return function (){
+        //     console.log('unmounting........')
+        // }
+
+   }, [])
+
     const handleDisplayCreateModal = () => {
         navigate('/createTodo')
     }
@@ -52,6 +65,7 @@ function TodoListContainer() {
         }
 
     }
+
 
   return (
     <div className='todo-container'>
