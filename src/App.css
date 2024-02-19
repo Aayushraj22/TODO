@@ -4,3 +4,6 @@
   /* border: 4px solid pink; */
 }
 
+:root{
+  --purple-color: rgb(142, 4, 248); 
+}

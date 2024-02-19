@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../firebase/config';
-import { isAuthenticUser } from '../../Redux/authslice';
+import { isAuthenticUser } from '../../Redux/slice/authslice';
 import { useDispatch } from 'react-redux';
 
 function Signin() {

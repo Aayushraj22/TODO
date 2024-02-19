@@ -1,6 +1,5 @@
 import {configureStore, combineReducers} from '@reduxjs/toolkit'
-import themeReducer from './themeSlice'
-import authUserReducer from './authslice'
+import authUserReducer from './slice/authslice'
 import TodoReducer from './slice/TodoSlice'
 import storage from 'redux-persist/lib/storage'
 import { persistStore , persistReducer } from 'redux-persist';
@@ -13,7 +12,6 @@ const persistConfig = {
   };
 
   const rootReducer = combineReducers({
-    themeChanger: themeReducer,
     authenticUser: authUserReducer,
     listView: ViewReducer,
  })

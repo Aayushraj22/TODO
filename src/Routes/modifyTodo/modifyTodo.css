@@ -9,7 +9,15 @@
     left: 10%;
     right: 10%;
     background-color: white;
-    box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.466);
+    box-shadow: 1px 1px 10px rgba(152, 151, 151, 0.466);
+}
+
+@media screen and (max-width: 578px) {
+    .modal-container{
+        left: 1rem;
+        right: 1rem;
+        padding: 1rem;
+    }
 }
 
 

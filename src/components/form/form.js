@@ -3,15 +3,15 @@ import './form.css'
 import Button from '../button/Button'
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { app, db } from '../../firebase/config';
-import { useDispatch, useSelector } from 'react-redux';
-import { isAuthenticUser } from '../../Redux/authslice'
+import { useDispatch } from 'react-redux';
+import { isAuthenticUser } from '../../Redux/slice/authslice'
 import { useNavigate, useLocation } from 'react-router-dom';
-import { addDoc, collection, query, where, getDocs, getDoc } from 'firebase/firestore';
+import { addDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { toggleLoading } from '../../Redux/slice/loaderSlice';
 
 function Form() {
-    const isLoading = useSelector(state => state.loadingStatus);
+    // const isLoading = useSelector(state => state.loadingStatus);
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const location = useLocation();

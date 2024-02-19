@@ -2,18 +2,15 @@ import React from 'react'
 import './navbar.css'
 import Button from '../button/Button'
 import { useDispatch, useSelector } from 'react-redux';
-import { dark, light } from '../../Redux/themeSlice';
 import { useNavigate } from 'react-router-dom';
-import {isAuthenticUser} from '../../Redux/authslice';
+import {isAuthenticUser} from '../../Redux/slice/authslice';
 import { toast } from 'react-toastify';
 
 function Navbar() {
   const selector = useSelector(state => state.persistedReducer.authenticUser)
-  // console.log('authuser 123: ',selector)
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const theme = useSelector((state) => state.persistedReducer.themeChanger)
 
     function handleShowAuthWindow(text){
         return navigate(`/${text}`)

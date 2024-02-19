@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import './home.css'
-import Header from '../Header'
+import '../../App.css'
+import Header from '../header/Header'
 import Wrapper from '../../HOC/wrapper/wrapper'
 import TodoListContainer from '../todoListContainer/TodoListContainer';
 import { useSelector } from 'react-redux';
@@ -17,7 +18,7 @@ function Home() {
         <Wrapper style={{background: 'white'}}>
             <Header />
         </Wrapper>
-        {isAuthenticated && <Wrapper style={{background: 'whitesmoke'}}>
+        {isAuthenticated && <Wrapper style={{background: 'white'}}>
                     <TodoListContainer />
                 </Wrapper>
         }
