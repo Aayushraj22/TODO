@@ -9,6 +9,7 @@ import { collection, addDoc, getDoc, doc, updateDoc } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleLoading } from '../../Redux/slice/loaderSlice';
 import { setTodoTaskList } from '../../Redux/slice/TodoSlice';
+import { TabManager } from '../../FormatInput';
 
 function ModifyTodo({modalType}) {
 
@@ -175,12 +176,12 @@ function ModifyTodo({modalType}) {
         </div>
         <div className="input-box">
             <label htmlFor="title">Title</label>
-            <input type="text"  id='title' className='inputElement' value={title} onChange={handleOnChangeInput} required/>
+            <input type="text"  id='title' className='inputElement' autoFocus value={title} onChange={handleOnChangeInput} required/>
         </div>
 
         <div className="input-box">
             <label htmlFor="description">Description</label>
-            <textarea type="text"  id='description' className='inputElement' rows={10} cols={40} value={description} onChange={handleOnChangeInput} required/>
+            <textarea type="text"  id='description' className='inputElement' rows={10} cols={40} value={description} onChange={handleOnChangeInput} onKeyDown={(e) => TabManager.enableTab(e)} required/>
         </div>
 
         <div className="button-container">

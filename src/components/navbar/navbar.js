@@ -33,15 +33,7 @@ function Navbar() {
               <Button onClick={() => handleShowAuthWindow('signin')}>signin</Button>
               <Button onClick={() => handleShowAuthWindow('signup')}>signup</Button>
             </>)}
-              
-              
-              {/* <Button onClick={() => {
-                if(theme.color === 'white'){
-                  dispatch(light())
-                }else{
-                  dispatch(dark())
-                }
-              }}>{theme.color==='white' ? 'Light' : 'Dark'}</Button> */}
+                
           </div>
       </div>
     </>

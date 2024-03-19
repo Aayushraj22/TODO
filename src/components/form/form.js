@@ -105,7 +105,7 @@ function Form() {
             // if user with provided email does not exits then redirect to signup page
             if(docSnapShot.empty){
                 dispatch(toggleLoading(false));
-                toast.error('Register yourself before signin');
+                toast.error('Register Yourself, Redirecting to SignIn');
                 setTimeout(() => {
                     navigate('/signin')
                 }, 1000);
@@ -125,7 +125,12 @@ function Form() {
                 return;
             } else {
                 querySnapshot.forEach(doc => {
+                    // store the current user's basic identity-data in localstore 
+                    const {firstName, photoURL} = doc.data();
+                    const userData = {name: firstName, photoURL};
+
                     localStorage.setItem('uid', doc.ref.id);
+                    localStorage.setItem('user', JSON.stringify(userData));
                     dispatch(isAuthenticUser(true))
                 })
 
@@ -142,7 +147,7 @@ function Form() {
             // show error message to the user
             if (error.code === 'auth/invalid-credential'){
                 toast.error('invalid Email or Password')
-            }else{    // this will be problem other than wrong email and  password
+            }else{    // this will be problem other than wrong email and password
                 toast.error('SignIn Failed, Try Again');
             }
         }
